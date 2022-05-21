@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use App\Models\Regional;
 
 class User extends Authenticatable
 {
@@ -24,7 +25,7 @@ class User extends Authenticatable
         'gender',
         'address',
         'password',
-        'id_regional'
+        'regional_id'
     ];
 
     /**
@@ -35,6 +36,9 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
         'remember_token',
+        'regional_id',
+        'created_at',
+        'updated_at',
     ];
 
     /**
@@ -45,4 +49,8 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function regional(){
+        return $this->belongsTo(Regional::class);
+    }
 }

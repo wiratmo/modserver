@@ -22,6 +22,7 @@ class ConsultationController extends Controller
 
         return  response()->json([
             'id' => $consultation->id,
+            'status' => $consultation->status,
             'disease_history' => $consultation->disease_history,
             'current_symptoms' => $consultation->current_symptoms,
             'doctor_notes' => $consultation->doctor_notes,

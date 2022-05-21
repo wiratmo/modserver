@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\ConsultationController;
+use App\Http\Controllers\API\VaccinationSpotController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -26,18 +27,9 @@ Route::prefix('v1')->group(function () {
     Route::group(['middleware' => ['auth:sanctum']], function(){
         Route::post('/consultations',[ConsultationController::class,'makeconsule']);
         Route::get('/consultations',[ConsultationController::class,'consulecond']);
+
+        Route::get('/spots',[VaccinationSpotController::class,'getVaccineSpot']);
+        Route::get('/spots/{id}',[VaccinationSpotController::class,'spotDetail']);
     });
 
 });
-
-
-
-// Route::group(['middleware' => ['auth:sanctum']], function(){
-//     Route::post('/logout',[AuthController::class, 'logout']);
-//     Route::post('/consultations',[ConsultationController::class,'makeconsule']);
-//     Route::get('/consultations',[ConsultationController::class,'consulecond']);
-// });
-
-// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-//     return $request->user();
-// });

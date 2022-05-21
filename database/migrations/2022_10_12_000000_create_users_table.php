@@ -13,13 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('consultations', function (Blueprint $table) {
+        Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->enum('status',['pending','accepted','rejected'])->default('pending');
-            $table->string('disease_history')->nullable();
-            $table->string('current_symptoms')->nullable();
-            $table->string('doctor_notes')->nullable();
-            $table->string('doctor')->nullable();
+            $table->string('id_card_number')->unique();
+            $table->string('name');
+            $table->date('born_date');
+            $table->enum('gender', ['male', 'female']);
+            $table->string('address');
+            $table->string('password');
+            $table->foreignId('regional_id')->constrained();
             $table->timestamps();
         });
     }
@@ -31,6 +33,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('consultations');
+        Schema::dropIfExists('users');
     }
 };

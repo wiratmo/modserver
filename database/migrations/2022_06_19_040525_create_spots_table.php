@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('spots', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('vaccination_id')->constrained();
             $table->string('name');
             $table->string('address');
             $table->enum('serve',[1,2,3]);
