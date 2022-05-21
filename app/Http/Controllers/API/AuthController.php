@@ -17,24 +17,24 @@ class AuthController extends Controller
             'id_card_number' => 'required|string|min:16|unique:users',
             'name' => 'required|string|max:100',
             'born_date' => 'required|date',
+            'gender' => 'required',
             'address' => 'required|string|max:200',
-            'password' => 'required|string|min:6'
+            'password' => 'required|string|min:6',
+            'id_regional' => 'required',
         ]);
 
         $user = User::create([
             'id_card_number' => $request->id_card_number,
             'name' => $request->name,
             'born_date' => $request->born_date,
+            'gender' => $request->gender,
             'address' => $request->address,
-            'password' => Hash::make($request->password) 
+            'password' => Hash::make($request->password),
+            'id_regional' => $request->id_regional
         ]);
 
-        $token = $user->createToken('auth-sanctum')->plainTextToken;
-
         return response()->json([
-            'message' => 'Your account is successfully created!',
-            'access_token' => $token,
-            'token_type' => 'Bearer'
+            'message' => 'Your account is successfully created!'
         ]);
     }
 
@@ -52,8 +52,7 @@ class AuthController extends Controller
         }
 
         $user = User::where('id_card_number', $request->id_card_number)->firstOrFail();
-
-        $token = $user->createToken('auth-sanctum')->plainTextToken;
+        $token = $user->createToken('auth-sanctum',['*'],$request->id_card_number)->plainTextToken;
 
         return response()->json([
             'name' => $user->name,

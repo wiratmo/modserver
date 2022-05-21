@@ -21,8 +21,10 @@ class User extends Authenticatable
         'id_card_number',
         'name',
         'born_date',
+        'gender',
         'address',
         'password',
+        'id_regional'
     ];
 
     /**
